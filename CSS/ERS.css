@@ -1,0 +1,45 @@
+
+
+*{
+    background-color: rgb(255, 255, 255);
+
+}
+
+#company {
+    text-align: center;
+   
+  
+    
+}
+
+#slogan {
+    text-align: center;
+    font-style: italic;
+}
+
+#loginbutton {
+    width: 15%;
+}
+
+#getEmployeeButton {
+
+    width: 30%;
+}
+
+.textcenter {
+    text-align: center;
+}
+
+#updateButton {
+    width: 15%;
+
+}
+
+#username {
+    width: 30%
+
+}
+
+#password {
+    width: 30%
+}
