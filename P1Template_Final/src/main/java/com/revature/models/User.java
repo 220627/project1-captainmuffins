@@ -6,20 +6,39 @@ public class User {
 
 	private int user_id;
 	private String username;
-	private String passsword;
+	private String password;
+	private Role role; 
 	
+	private int role_id_fk;
 	
-	public User(int user_id, String username, String passsword) {
+
+	public int getRole_id_fk() {
+		return role_id_fk;
+	}
+
+	public void setRole_id_fk(int role_id_fk) {
+		this.role_id_fk = role_id_fk;
+	}
+
+	
+	public User(int user_id, String username, String password, Role role) {
 		super();
 		this.user_id = user_id;
 		this.username = username;
-		this.passsword = passsword;
+		this.password = password;
+		this.role = role;
 	}
 
-
+	public User(int user_id, String username, String password, int role_id_fk) {
+		super();
+		this.user_id = user_id;
+		this.username = username;
+		this.password = password;
+		this.role_id_fk = role_id_fk;
+	}
 	@Override
 	public String toString() {
-		return "User [user_id=" + user_id + ", username=" + username + ", passsword=" + passsword + "]";
+		return "User [user_id=" + user_id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
 	}
 
 
@@ -44,12 +63,12 @@ public class User {
 
 
 	public String getPasssword() {
-		return passsword;
+		return password;
 	}
 
 
-	public void setPasssword(String passsword) {
-		this.passsword = passsword;
+	public void setPasssword(String password) {
+		this.password = password;
 	}
 	
 	

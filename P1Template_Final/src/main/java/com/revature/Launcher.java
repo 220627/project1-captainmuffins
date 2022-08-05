@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import com.revature.controllers.AuthController;
 import com.revature.controllers.EmployeeController;
 import com.revature.controllers.RoleController;
+import com.revature.controllers.TicketController;
 import com.revature.daos.AuthDAO;
 import com.revature.daos.EmployeeDAO;
 import com.revature.daos.RoleDAO;
+import com.revature.daos.TicketsDAO;
 import com.revature.models.Employee;
 import com.revature.models.Role;
 import com.revature.utils.ConnectionUtil;
@@ -20,13 +22,9 @@ public class Launcher {
 	
 	public static void main(String[] args) {
 		
-		//****These aren't being used anymore, DAO methods are now called in the Controller layer
-		//Instantiate an EmployeeDAO and RoleDAO so we can use their methods
-		EmployeeDAO eDAO = new EmployeeDAO();
-		RoleDAO rDAO = new RoleDAO();
 		
 		
-		System.out.println("========Welcome to the Krusty Krab Employee Management System========");
+		System.out.println("========Welcome to Loot Crew ERS========");
 		
 		//this is a try-with-resources block. it will test whether our Connection works.
 		//try-with-resources works by trying to open a certain resource (Connection in this case)
@@ -57,7 +55,7 @@ public class Launcher {
 		
 		//Instantiate an EmployeeController so that we can use its handlers
 		EmployeeController ec = new EmployeeController();
-		
+		TicketController tc = new TicketController();
 		//Instantiate a RoleController so that we can use its handler
 		RoleController rc = new RoleController();
 		
@@ -70,21 +68,32 @@ public class Launcher {
 		//this handler takes in GET requests ending in /employees, and sends them to the getEmployeesHandler
 		//the request in postman would look something like: localhost:3000/employees
 		app.get("/employees", ec.getEmployeesHandler);
+		app.get("/tickets",  tc.getTicketsHandler);
+		app.get("/tickets/filter/:user_id", tc.getUserTicketsHandler);
+		app.get("/tickets/:status_id", tc.filterTicketHandler);
 		//what does /employees relate to? it's something we define. we want requests ending in /employees to get all employees
-		
+		app.post("/tickets", tc.insertTicketHandler);
 		//app.post() is the javalin method that takes in POST requests. It will insert employee data into the DB.
 		//how come we can have two endpoints of "/employees"? that's because one is for a GET, while the other is a POST
-		app.post("/employees", ec.insertEmployeeHandler);
+
 		
 		//app.put() is a javalin method that takes PUT requests. 
 		//It will take in two pieces of data: the role title (in the path parameter) and the salary (in the Request body)
 		//:title? This is a PATH PARAMETER. Whatever the user inserts here in the request will be used in the controller
-		app.put("/roles/:title", rc.updateSalaryHandler);
-		
-		app.delete("/delete/:id", ec.deleteEmployeeHandler);
+		app.put("/tickets/:ticket_id", tc.updateTicketHandler);
+	
 	
 		app.post("/login", ac.loginHandler);
 		
-	} //end of main method
-	
+	}
 }
+//		 __
+//  (___()'`; - root root 
+//  /,    /`
+//  \\"--\\      
+//  (___()'`;
+//  /,    /`
+//  \\"--\\      
+//  (___()'`;
+//  /,    /`
+//  \\"--\\

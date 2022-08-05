@@ -41,7 +41,7 @@ public class EmployeeController {
 		ctx.status(200); //ctx.status() sets the HTTP status code. 200 stands for "OK", the generic success code.
 		
 		} else { //if the user is NOT logged in (aka AuthController.ses wil be null)
-			ctx.result("YOU ARE NOT LOGGED IN!! *SMACK*");
+			ctx.result("Crew members only. Please sign in.");
 			ctx.status(401); //"forbidden" access code
 		}
 		
@@ -49,39 +49,13 @@ public class EmployeeController {
 
 	
 	//This Handler will get the HTTP POST Request for inserting employees, then send the employee data to the DB.
-	public Handler insertEmployeeHandler = (ctx) -> {
-		
-		//With POST requests, we have some data coming in, which we access with ctx.body();
-		//body?? it refers to the BODY of the HTTP Request (which is where the incoming data is found)
-		String body = ctx.body(); //store the data in a String 
-		
-		//create a new GSON object to make JSON <-> Java conversions
-		Gson gson = new Gson();
-		
-		//turn the incoming JSON String directly into an Employee object
-		//remember, fromJson() is the method that takes a JSON String and turns it into some Java object
-		Employee newEmp = gson.fromJson(body, Employee.class);
+
 		
 		//we call the insertEmployee() method to send our newly created employee to the DB.
 		//IF it succeeds, it'll return true since that's the return type of insertEmployee()
-		if(eDAO.insertEmployee(newEmp)) {
-			//return a successful status code
-			ctx.status(202); //202 stands for "accepted"
-		} else {
-			ctx.status(406); //406 stands for "Not Acceptable", AKA whatever the user sent couldn't be added to the DB
-		}
+		
 		
 	};
 	
-	public Handler deleteEmployeeHandler = (ctx) -> {
-		
-		int youreFired = Integer.valueOf(ctx.pathParam("id"));
-		
-		eDAO.deleteEmployee(youreFired);
-		
-		ctx.result("Employee " + youreFired + " terminated");
-		ctx.status(200);
-		
-	};
 
-}
+

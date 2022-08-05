@@ -15,25 +15,23 @@ public class Role {
 	}
 
 	//all args constructor
-	public Role(int role_id, String role_title, int role_salary) {
+	public Role(int role_id, String role_title) {
 		super();
 		this.role_id = role_id;
 		this.role_title = role_title;
-		this.role_salary = role_salary;
 	}
 
 	//all args MINUS ID constructor. This is very common when INSERTing data with JDBC applications
 	//these will come in handy when we need to INSERT more records, because role_id is handled by the serial datatype in the DB 
-	public Role(String role_title, int role_salary) {
+	public Role(String role_title) {
 		super();
 		this.role_title = role_title;
-		this.role_salary = role_salary;
 	}
 
 	//remember, we need a toString to be able to print out Role objects
 	@Override
 	public String toString() {
-		return "Role [role_id=" + role_id + ", role_title=" + role_title + ", role_salary=" + role_salary + "]";
+		return "Role [role_id=" + role_id + ", role_title=" + role_title + "]";
 	}
 
 	public int getRole_id() {

@@ -11,13 +11,12 @@ import com.revature.utils.ConnectionUtil;
 //This RoleDAO is responsible for communicating with the roles table in the database
 //Every DB table should have a DAO Class associated with it for organization.
 	//We COULD just have one huge DAO Class with methods for every table, but that will be a longgggg scroll.
-public class RoleDAO implements RoleDAOInterface {
+public class RoleDAO {
 
 	//This method takes in an int, and returns the Role with the role_id that matches the given int.
-	@Override
 	public Role getRoleById(int id) {
 		
-		//use a try-with-resources to open a DB connection object
+		//use a try-with-resources to open a DsB connection object
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
 			//String that lays out the SQL query we want to run
@@ -44,8 +43,7 @@ public class RoleDAO implements RoleDAOInterface {
 				//note we're getting data by calling each column name of our Role table 
 				Role role = new Role(
 						rs.getInt("role_id"),
-						rs.getString("role_title"),
-						rs.getInt("role_salary")
+						rs.getString("role_title")
 					); 
 				
 				return role; //return the Role data to the user!
@@ -61,40 +59,12 @@ public class RoleDAO implements RoleDAOInterface {
 		
 		return null;
 		
-	} //end of select by id method
-
-	@Override
-	public boolean updateRoleSalary(String title, int salary) {
-		
-		try(Connection conn = ConnectionUtil.getConnection()){
-			
-			//SQL String for our UPDATE command
-			String sql = "update roles set role_salary = ? where role_title = ?;";
-			
-			//create our PreparedStatement to fill in the variables
-			PreparedStatement ps = conn.prepareStatement(sql);
-			
-			//input the appropriate values into our PreparedStatement
-			ps.setInt(1, salary);
-			ps.setString(2, title);
-			
-			//execute the update!
-			ps.executeUpdate();
-			
-			//tell the console the update was successfully 
-			System.out.println(title + " has been updated to " + salary);
-			
-			//if it succeeds, return true
-			return true;
-			
-		} catch (SQLException e) {
-			System.out.println("FAILED TO UPDATE");
-			e.printStackTrace();
-		}
-		
-		
-		return false; //if update fails, return false
-		
 	}
+
+	public boolean updateRoleSalary(String title, int salary) {
+		// TODO Auto-generated method stub
+		return false;
+	} 
+
 
 }

@@ -32,20 +32,30 @@ public class AuthDAO {
 		//so we can create a new User object to send to the front end
 		if(rs.next()) {
 			
+			int user_id = rs.getInt("user_id");
+			
 			User u = new User(
 					rs.getInt("user_id"),
 					rs.getString("username"),
-					rs.getString("password")
+					rs.getString("password"),
+					rs.getInt("role_id_fk")
 					);
 			
+			
+			if (rs.getInt("role_id_fk") != 2) {
+			
+			
+			//tell the console the update was successfully 
+			System.out.println("Welcome employee user!");
 			return u;
 			
-			//notice we're returning a password here... probably not best practice lol
-			//in a REAL application, you'd probably want a User constructor with no password
-			//and send that around instead.
-			
-		}
 		
+			} else {
+				System.out.println("Welcome manager user!");
+				return u;
+			}
+				
+			}
 		} catch (SQLException e) {
 			System.out.println("LOGIN FAILED");
 			e.printStackTrace();
@@ -54,5 +64,11 @@ public class AuthDAO {
 		return null; //if no user is returned, return null. We will do a null check in the service layer.
 		
 	}
-	
 }
+	
+			
+		
+			
+			
+			
+
